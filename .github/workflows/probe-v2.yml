@@ -1,0 +1,48 @@
+name: Probe v2 asset source
+
+on:
+  push:
+    branches: [publish-v2-bootstrap]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download one accepted asset
+        run: |
+          set -euo pipefail
+          curl -fL --retry 2 --connect-timeout 15 \
+            'https://sleeping-stars-v2.regulus81-lunatype5.chatgpt.site/img/02_Lune.png' \
+            -o /tmp/02_Lune.png
+          echo "downloaded_bytes=$(stat -c%s /tmp/02_Lune.png)"
+          echo "raw_sha256=$(sha256sum /tmp/02_Lune.png | awk '{print $1}')"
+      - name: Compute XMP-stripped candidate hash
+        run: |
+          python - <<'PY'
+          import struct, hashlib
+          p='/tmp/02_Lune.png'
+          data=open(p,'rb').read()
+          out=bytearray(data[:8]); pos=8; removed=[]
+          while pos+12 <= len(data):
+              L=struct.unpack('>I',data[pos:pos+4])[0]
+              typ=data[pos+4:pos+8]
+              end=pos+12+L
+              payload=data[pos+8:pos+8+L]
+              drop=False
+              if typ in (b'iTXt',b'tEXt',b'zTXt'):
+                  low=payload.lower()
+                  if any(k in low for k in (b'xmp',b'adobe',b'canva',b'rdf:',b'dc:',b'xmpmeta')):
+                      drop=True
+              if drop:
+                  removed.append(typ.decode('latin1'))
+              else:
+                  out.extend(data[pos:end])
+              pos=end
+              if typ==b'IEND': break
+          print('removed_chunks='+','.join(removed))
+          print('stripped_sha256='+hashlib.sha256(out).hexdigest())
+          print('accepted_sha256=a5dfb0e6e2cc7957085e98c269bac28720b076b85c8dac9d50df935ec53689f1')
+          PY
