@@ -1,0 +1,48 @@
+name: Fix mobile image saving
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mobile-save-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-mobile-save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch mobile save behavior
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('js/app.js')
+          s = p.read_text(encoding='utf-8')
+          old = "  function downloadCanvas(canvas,name){const a=document.createElement('a');a.download=name;a.href=canvas.toDataURL('image/png');a.click()}"
+          new = r'''  function isMobileSaveEnvironment(){return /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)||('ontouchstart' in window&&navigator.maxTouchPoints>0)}
+  function showMobileSavePreview(dataUrl,name){
+    const existing=document.getElementById('mobileSavePreview');if(existing)existing.remove();
+    const messages={ja:{title:'画像を保存',guide:'画像を長押しして「写真に保存」を選んでください。共有ボタンから保存することもできます。',share:'共有・保存',close:'閉じる'},en:{title:'Save image',guide:'Press and hold the image to save it to Photos, or use the share button.',share:'Share / Save',close:'Close'},ko:{title:'이미지 저장',guide:'이미지를 길게 눌러 사진에 저장하거나 공유 버튼을 이용해 주세요.',share:'공유・저장',close:'닫기'}};
+    const m=messages[locale]||messages.ja,overlay=document.createElement('div');overlay.id='mobileSavePreview';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');
+    overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(2,8,22,.96);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:calc(18px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom));overflow:auto;color:#f5f4ee;text-align:center';
+    const title=document.createElement('h2');title.textContent=m.title;title.style.cssText='font-size:1.2rem;margin:6px 0 8px;color:#efd99a';
+    const guide=document.createElement('p');guide.textContent=m.guide;guide.style.cssText='max-width:34em;margin:0 0 14px;color:#d2dbea;line-height:1.7;font-size:.92rem';
+    const img=document.createElement('img');img.src=dataUrl;img.alt=m.title;img.style.cssText='display:block;max-width:min(92vw,520px);height:auto;border-radius:16px;box-shadow:0 18px 55px rgba(0,0,0,.45);-webkit-touch-callout:default;user-select:auto';
+    const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0 4px';
+    const share=document.createElement('button');share.type='button';share.textContent=m.share;share.style.cssText='min-height:48px;padding:12px 22px;border:0;border-radius:999px;background:#efd99a;color:#172038;font:inherit;font-weight:500';
+    share.onclick=async()=>{try{const blob=await (await fetch(dataUrl)).blob(),file=new File([blob],name,{type:'image/png'});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Sleeping Stars'})}else{const a=document.createElement('a');a.href=dataUrl;a.download=name;a.click()}}catch(e){if(e&&e.name!=='AbortError')console.error(e)}};
+    const close=document.createElement('button');close.type='button';close.textContent=m.close;close.style.cssText='min-height:48px;padding:12px 22px;border:1px solid rgba(205,220,255,.35);border-radius:999px;background:transparent;color:#dce8f8;font:inherit';close.onclick=()=>overlay.remove();
+    actions.append(share,close);overlay.append(title,guide,img,actions);document.body.appendChild(overlay);
+  }
+  function downloadCanvas(canvas,name){const dataUrl=canvas.toDataURL('image/png');if(isMobileSaveEnvironment()){showMobileSavePreview(dataUrl,name);return}const a=document.createElement('a');a.download=name;a.href=dataUrl;a.click()}'''
+          if old not in s:
+              raise SystemExit('Target downloadCanvas function not found; refusing to patch')
+          p.write_text(s.replace(old,new,1), encoding='utf-8')
+      - name: Commit fix
+        run: |
+          git config user.name "Rainy Muse"
+          git config user.email "regulus81.lunatype5@gmail.com"
+          git add js/app.js
+          git commit -m "Fix image saving on mobile" || exit 0
+          git push
