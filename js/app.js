@@ -2,7 +2,10 @@
   'use strict';
   const DATA=window.SS_DATA;
   const path=location.pathname;
-  const locale=path.startsWith('/en')?'en':path.startsWith('/ko')?'ko':'ja';
+  const parts=path.split('/').filter(Boolean);
+  const repoIndex=parts.indexOf('sleeping-stars-v2');
+  const basePath=repoIndex>=0?'/'+parts.slice(0,repoIndex+1).join('/')+'/':'/';
+  const locale=parts.includes('en')?'en':parts.includes('ko')?'ko':'ja';
   const L=DATA.locales[locale],C=DATA.common,U=L.ui;
   const $=id=>document.getElementById(id);
   const fill=(s,v)=>s.replace(/\{(\w+)\}/g,(_,k)=>v[k]??'');
@@ -57,7 +60,7 @@
     const second=lastMetrics.ranked.find(x=>x.type!==first).type,T=localizedType(first),S=localizedType(second);resultPrimary=first;
     setText('resultType',`Type ${first}`);setText('resultName',T.name);$('constellation').innerHTML=constellationSvg(first);$('constellation').setAttribute('aria-label',U.constellationLabel);
     $('picked').innerHTML=[...selected.values()].sort((a,b)=>a.round-b.round).map(v=>`<span>${escapeHtml(v.text)}</span>`).join('');setText('attract',T.attract);setText('value',T.value);setText('tired',T.tired);setText('hintText',T.hint);
-    setText('blend',fill(L.blend,{first,firstName:T.name,second,secondName:S.name}));$('parentImage').src=`/img/${T.parent}`;$('parentImage').alt=fill(U.parentAlt,{type:first});$('kidImage').src=`/img/${T.kid}`;$('kidImage').alt=fill(U.kidAlt,{type:first});setText('familyName',T.family);setText('familyType',fill(U.familyType,{type:first}));show('result');
+    setText('blend',fill(L.blend,{first,firstName:T.name,second,secondName:S.name}));$('parentImage').src=`${basePath}img/${T.parent}`;$('parentImage').alt=fill(U.parentAlt,{type:first});$('kidImage').src=`${basePath}img/${T.kid}`;$('kidImage').alt=fill(U.kidAlt,{type:first});setText('familyName',T.family);setText('familyType',fill(U.familyType,{type:first}));show('result');
   }
 
   function constellationSvg(type){
@@ -88,7 +91,7 @@
   async function saveResult(kind){
     const wallpaper=kind==='wallpaper',w=1080,h=wallpaper?1920:1350,T=localizedType(resultPrimary),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d'),g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#0d2b54');g.addColorStop(.55,'#071832');g.addColorStop(1,'#030918');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);drawBackgroundStars(ctx,w,h,resultPrimary);drawDecorativeSky(ctx,w,h);ctx.textAlign='center';ctx.fillStyle='#efd99a';ctx.font='42px "Cormorant Garamond",serif';ctx.fillText('S L E E P I N G   S T A R S',w/2,105);ctx.fillStyle='#f5f4ee';ctx.font=locale==='ja'?'500 48px "Noto Serif JP",serif':locale==='ko'?'500 45px "Noto Sans KR",sans-serif':'500 44px "Cormorant Garamond",serif';ctx.fillText(U.wallTitle,w/2,180);drawOfficialConstellation(ctx,resultPrimary,w/2,wallpaper?410:350,wallpaper?560:500);
     const words=[...selected.values()].sort((a,b)=>a.round-b.round).slice(0,wallpaper?8:6).map(v=>v.text);ctx.font=locale==='ja'?'30px "Noto Serif JP",serif':locale==='ko'?'28px "Noto Sans KR",sans-serif':'29px "Cormorant Garamond",serif';ctx.fillStyle='#f5ebc8';words.forEach((word,i)=>{const col=i%2,row=Math.floor(i/2),x=w/2+(col?230:-230),y=(wallpaper?720:640)+row*64;ctx.fillText('✦ '+word,x,y,420)});
-    const [parent,kid]=await Promise.all([loadImage(`/img/${T.parent}`),loadImage(`/img/${T.kid}`)]);if(wallpaper){contain(ctx,kid,220,970,640,650);contain(ctx,parent,55,1260,320,430)}else{contain(ctx,parent,105,760,455,420);contain(ctx,kid,520,790,390,390)}ctx.fillStyle='#efd99a';ctx.font=locale==='ja'?'500 38px "Noto Serif JP",serif':locale==='ko'?'500 37px "Noto Sans KR",sans-serif':'500 42px "Cormorant Garamond",serif';ctx.fillText(T.family,w/2,h-150);ctx.fillStyle='rgba(210,222,240,.78)';ctx.font=locale==='ja'?'25px "Noto Serif JP",serif':locale==='ko'?'24px "Noto Sans KR",sans-serif':'27px "Cormorant Garamond",serif';const note=wallpaper?U.wallNote:fill(U.shareNote,{value:T.value});wrapText(ctx,note,w/2,h-100,900,34,2);ctx.font='24px "Cormorant Garamond",serif';ctx.fillText('Rainy Muse',w/2,h-42);downloadCanvas(canvas,`${U.downloadName}-${wallpaper?'wallpaper':'share'}-type-${resultPrimary}-${locale}.png`)
+    const [parent,kid]=await Promise.all([loadImage(`${basePath}img/${T.parent}`),loadImage(`${basePath}img/${T.kid}`)]);if(wallpaper){contain(ctx,kid,220,970,640,650);contain(ctx,parent,55,1260,320,430)}else{contain(ctx,parent,105,760,455,420);contain(ctx,kid,520,790,390,390)}ctx.fillStyle='#efd99a';ctx.font=locale==='ja'?'500 38px "Noto Serif JP",serif':locale==='ko'?'500 37px "Noto Sans KR",sans-serif':'500 42px "Cormorant Garamond",serif';ctx.fillText(T.family,w/2,h-150);ctx.fillStyle='rgba(210,222,240,.78)';ctx.font=locale==='ja'?'25px "Noto Serif JP",serif':locale==='ko'?'24px "Noto Sans KR",sans-serif':'27px "Cormorant Garamond",serif';const note=wallpaper?U.wallNote:fill(U.shareNote,{value:T.value});wrapText(ctx,note,w/2,h-100,900,34,2);ctx.font='24px "Cormorant Garamond",serif';ctx.fillText('Rainy Muse',w/2,h-42);downloadCanvas(canvas,`${U.downloadName}-${wallpaper?'wallpaper':'share'}-type-${resultPrimary}-${locale}.png`)
   }
 
   $('start').onclick=()=>{selected.clear();round=0;render();show('quiz')};$('back').onclick=()=>{round--;render();scrollTo(0,0)};$('next').onclick=()=>{if(round<7){round++;render();scrollTo(0,0)}else beginResults()};$('saveWallpaper').onclick=()=>saveResult('wallpaper');$('saveShare').onclick=()=>saveResult('share');$('restart').onclick=()=>show('intro');
