@@ -40,7 +40,7 @@
       ['日々を照らす星空',['丁寧に整える','気持ちに寄り添う','目標へ近づく','美しさを見つける','知識を深める','先を予測する','好奇心のままに','迷わず決める','一歩引いて見る']],
       ['人とつながる星空',['信頼に応える','あたたかなつながり','期待に応える','本当の自分でいる','ほどよい距離','信頼できる関係','楽しさを分かち合う','率直に向き合う','みんなが安心する']],
       ['立ち止まる夜の星空',['不完全さが気になる','自分を後回しにする','評価が気になる','足りなさを感じる','ひとりに戻りたい','何度も確認したい','次の楽しさを探す','弱さを見せたくない','決めるのを後回し']],
-      ['これからへ続く星空',['少し力を抜く','自分の望みも聴く','何もしない時間','今ある輝きを見る','知を外へ開く','自分の判断を信じる','今ここに留まる','柔らかさを許す','自分の願いを選ぶ']],
+      ['これからへ続く星空',['少し力を抜く','自分の望みも聴く','何もしない時間','今ある輝きを見る','知を外へ開く','自分の判断を信じる','今ここに留まる','柔らかく受け止める','自分の願いを選ぶ']],
       ['迷いの中の星空',['納得できる基準を探す','相手の気持ちを確かめる','前へ進める道を選ぶ','自分の本音に忠実でいたい','情報を集めて距離を置く','リスクを一つずつ確かめる','心が軽くなる可能性を選ぶ','自分で決めて引き受ける','波立たない着地点を探す']],
       ['光を取り戻す星空',['整った状態へ戻す','誰かと心を通わせる','手応えのある一歩を進める','感情を静かに味わう','ひとりで考える余白をつくる','安心できる手順を確かめる','新しい風に触れる','自分の力で流れを動かす','何もしない安らぎへ戻る']]
     ],
@@ -67,7 +67,7 @@
       ['The Everyday Sky',['Putting things in order','Meeting someone with care','Moving closer to a goal','Noticing beauty','Going deeper into knowledge','Thinking ahead','Following my curiosity','Making a clear decision','Taking a step back']],
       ['The Sky Between Us',['Being worthy of trust','A warm connection','Living up to expectations','Being true to myself','Comfortable distance','Relationships I can rely on','Sharing the joy','Meeting things head-on','A space where everyone can breathe']],
       ['The Sky on a Tired Night',['Noticing every imperfection','Putting myself last','Wondering how I am seen','Feeling that something is missing','Needing to retreat','Checking one more time','Looking for the next bright thing','Hiding my softer side','Putting the decision off']],
-      ['The Sky Ahead',['Loosening my grip','Listening to what I want','Letting myself simply be','Seeing the light already here','Sharing what I know','Trusting my own judgment','Staying with this moment','Allowing gentleness','Choosing my own wish']],
+      ['The Sky Ahead',['Loosening my grip','Listening to what I want','Letting myself simply be','Seeing the light already here','Sharing what I know','Trusting my own judgment','Staying with this moment','Taking things in more gently','Choosing my own wish']],
       ['The Sky of Uncertainty',['Finding a standard I can stand behind','Checking how the other person feels','Choosing the path that moves things forward','Staying true to what I really feel','Gathering information and stepping back','Checking each risk one by one','Choosing the possibility that feels lighter','Deciding for myself and carrying it through','Looking for a landing place that keeps the peace']],
       ['The Sky That Restores Your Light',['Returning things to a clear order','Sharing a true moment with someone','Taking a step that feels worthwhile','Sitting quietly with what I feel','Making room to think on my own','Confirming a path that feels safe','Letting in a breath of something new','Moving the current with my own strength','Returning to the ease of doing nothing']]
     ],
@@ -94,7 +94,7 @@
       ['일상을 비추는 별하늘',['정성스럽게 정돈하다','마음에 다가가다','목표에 가까워지다','아름다움을 발견하다','지식을 깊게 하다','앞을 내다보다','호기심을 따라가다','망설이지 않고 결정하다','한걸음 물러서 바라보다']],
       ['사람과 이어지는 별하늘',['신뢰에 보답하다','따뜻한 연결','기대에 부응하다','진짜 나로 있다','편안한 거리','믿을 수 있는 관계','즐거움을 나누다','솔직하게 마주하다','모두가 안심할 수 있게 하다']],
       ['멈춰 선 밤의 별하늘',['불완전함이 신경 쓰이다','나를 뒤로 미루다','평가가 마음에 걸리다','무언가 부족하다고 느끼다','혼자 있는 곳으로 돌아가고 싶다','몇 번이고 다시 확인하다','다음 즐거움을 찾다','약한 모습을 보이고 싶지 않다','결정을 뒤로 미루다']],
-      ['앞으로 이어지는 별하늘',['조금 힘을 빼다','내가 원하는 것도 듣다','아무것도 하지 않는 시간','이미 있는 빛을 바라보다','아는 것을 밖으로 나누다','나의 판단을 믿다','지금 이 순간에 머물다','부드러움을 허락하다','나의 바람을 선택하다']],
+      ['앞으로 이어지는 별하늘',['조금 힘을 빼다','내가 원하는 것도 듣다','아무것도 하지 않는 시간','이미 있는 빛을 바라보다','아는 것을 밖으로 나누다','나의 판단을 믿다','지금 이 순간에 머물다','부드럽게 받아들이다','나의 바람을 선택하다']],
       ['망설임 속의 별하늘',['납득할 수 있는 기준을 찾다','상대의 마음을 확인하다','앞으로 나아갈 길을 고르다','나의 진심에 충실하고 싶다','정보를 모으며 거리를 두다','위험을 하나씩 확인하다','마음이 가벼워지는 가능성을 고르다','스스로 결정하고 감당하다','평온한 결말을 찾다']],
       ['빛을 되찾는 별하늘',['정돈된 상태로 돌아가다','누군가와 진심을 나누다','보람이 느껴지는 한걸음을 내딛다','감정을 조용히 느끼다','혼자 생각할 여백을 만들다','안심할 수 있는 절차를 확인하다','새로운 바람을 맞다','나의 힘으로 흐름을 움직이다','아무것도 하지 않는 편안함으로 돌아가다']]
     ],
