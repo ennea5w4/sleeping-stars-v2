@@ -23,7 +23,7 @@
     document.querySelector('meta[name="description"]').content=L.meta.description;
     setText('subhead',U.subhead);setText('lead',U.lead);setText('detail',U.detail);$('introArt').alt=U.introAlt;
     $('meta').innerHTML=U.meta.map(x=>`<span>${escapeHtml(x)}</span>`).join('');setText('start',U.start);setMultiline('notice',U.notice);
-    setText('choiceGuide',U.choiceGuide);setText('counterLabel',U.found+'：');setText('back',U.back);
+    setText('choiceGuide',U.choiceGuide);setText('counterLabel',U.found+(locale==='ja'?'：':': '));setText('back',U.back);
     setText('resultBrand',U.resultBrand);setText('pickedTitle',U.picked);U.insights.forEach((x,i)=>setText('insight'+i,x));setText('overlapTitle',U.overlap);
     setText('familyLead',U.familyLead);setText('saveTitle',U.saveTitle);setText('saveLead',U.saveLead);setText('saveWallpaper',U.wallpaper);setText('saveShare',U.share);
     setMultiline('paidLead',U.paidLead);setText('paidLink',U.paid);$('paidLink').href=C.paidUrl;setText('storyLead',U.storyLead);setText('storyLink',U.story);setText('storySource',U.storySource);$('storyLink').href=C.articleUrls[locale];setText('restart',U.restart);
@@ -103,12 +103,28 @@
     actions.append(share,close);overlay.append(title,guide,img,actions);document.body.appendChild(overlay);
   }
   function downloadCanvas(canvas,name){const dataUrl=canvas.toDataURL('image/png');if(isMobileSaveEnvironment()){showMobileSavePreview(dataUrl,name);return}const a=document.createElement('a');a.download=name;a.href=dataUrl;a.click()}
-  async function saveResult(kind){
+  async function renderResult(kind){
     const wallpaper=kind==='wallpaper',w=1080,h=wallpaper?1920:1350,T=localizedType(resultPrimary),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d'),g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#0d2b54');g.addColorStop(.55,'#071832');g.addColorStop(1,'#030918');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);drawBackgroundStars(ctx,w,h,resultPrimary);drawDecorativeSky(ctx,w,h);ctx.textAlign='center';ctx.fillStyle='#efd99a';ctx.font='42px "Cormorant Garamond",serif';ctx.fillText('S L E E P I N G   S T A R S',w/2,105);ctx.fillStyle='#f5f4ee';ctx.font=locale==='ja'?'500 48px "Noto Serif JP",serif':locale==='ko'?'500 45px "Noto Sans KR",sans-serif':'500 44px "Cormorant Garamond",serif';ctx.fillText(U.wallTitle,w/2,180);drawOfficialConstellation(ctx,resultPrimary,w/2,wallpaper?410:350,wallpaper?560:500);
     const words=[...selected.values()].sort((a,b)=>a.round-b.round).slice(0,wallpaper?8:6).map(v=>v.text);ctx.font=locale==='ja'?'30px "Noto Serif JP",serif':locale==='ko'?'28px "Noto Sans KR",sans-serif':'29px "Cormorant Garamond",serif';ctx.fillStyle='#f5ebc8';words.forEach((word,i)=>{const col=i%2,row=Math.floor(i/2),x=w/2+(col?230:-230),y=(wallpaper?720:640)+row*64;ctx.fillText('✦ '+word,x,y,420)});
     const [parent,kid]=await Promise.all([loadImage(`${basePath}img/${T.parent}`),loadImage(`${basePath}img/${T.kid}`)]);if(wallpaper){contain(ctx,kid,220,970,640,650);contain(ctx,parent,55,1260,320,430)}else{contain(ctx,parent,105,760,455,420);contain(ctx,kid,520,790,390,390)}ctx.fillStyle='#efd99a';ctx.font=locale==='ja'?'500 38px "Noto Serif JP",serif':locale==='ko'?'500 37px "Noto Sans KR",sans-serif':'500 42px "Cormorant Garamond",serif';ctx.fillText(T.family,w/2,h-150);ctx.fillStyle='rgba(210,222,240,.78)';ctx.font=locale==='ja'?'25px "Noto Serif JP",serif':locale==='ko'?'24px "Noto Sans KR",sans-serif':'27px "Cormorant Garamond",serif';const note=wallpaper?U.wallNote:fill(U.shareNote,{value:T.value});wrapText(ctx,note,w/2,h-100,900,34,2);ctx.font='24px "Cormorant Garamond",serif';ctx.fillText('Rainy Muse',w/2,h-42);downloadCanvas(canvas,`${U.downloadName}-${wallpaper?'wallpaper':'share'}-type-${resultPrimary}-${locale}.png`)
   }
 
-  $('start').onclick=()=>{selected.clear();round=0;render();show('quiz')};$('back').onclick=()=>{round--;render();scrollTo(0,0)};$('next').onclick=()=>{if(round<7){round++;render();scrollTo(0,0)}else beginResults()};$('saveWallpaper').onclick=()=>saveResult('wallpaper');$('saveShare').onclick=()=>saveResult('share');$('restart').onclick=()=>show('intro');
+  const saveMessages={ja:'画像を作成できませんでした。通信環境を確認して、もう一度お試しください。',en:'The image could not be created. Please check your connection and try again.',ko:'이미지를 만들지 못했습니다. 통신 환경을 확인한 뒤 다시 시도해 주세요.'};
+  let saving=false;
+  function setSaveStatus(text){let el=$('saveStatus');if(!el){if(!text)return;el=document.createElement('p');el.id='saveStatus';el.setAttribute('role','alert');el.style.cssText='margin:14px 0 0;color:#f3c0b5;line-height:1.7;font-size:.9rem';document.querySelector('.save-area').appendChild(el)}el.textContent=text;el.hidden=!text}
+  function waitForFonts(text){
+    if(!document.fonts||!document.fonts.load)return Promise.resolve();
+    const family=locale==='ja'?'"Noto Serif JP"':locale==='ko'?'"Noto Sans KR"':null,specs=['400 42px "Cormorant Garamond"','500 42px "Cormorant Garamond"'];if(family)specs.push(`400 30px ${family}`,`500 30px ${family}`);
+    const loading=Promise.all(specs.map(f=>document.fonts.load(f,text).catch(()=>{}))).then(()=>document.fonts.ready);
+    return Promise.race([loading,new Promise(r=>setTimeout(r,4000))]).catch(()=>{});
+  }
+  async function saveResult(kind){
+    if(saving)return;saving=true;const buttons=[$('saveWallpaper'),$('saveShare')];buttons.forEach(b=>{b.disabled=true;b.setAttribute('aria-busy','true')});setSaveStatus('');
+    try{const T=localizedType(resultPrimary);await waitForFonts(['S L E E P I N G   S T A R S Rainy Muse ✦',U.wallTitle,U.wallNote,fill(U.shareNote,{value:T.value}),T.family,...[...selected.values()].map(v=>v.text)].join(''));await renderResult(kind)}
+    catch(e){console.error(e);setSaveStatus(saveMessages[locale]||saveMessages.ja)}
+    finally{saving=false;buttons.forEach(b=>{b.disabled=false;b.removeAttribute('aria-busy')})}
+  }
+
+  $('start').onclick=()=>{selected.clear();setSaveStatus('');round=0;render();show('quiz')};$('back').onclick=()=>{round--;render();scrollTo(0,0)};$('next').onclick=()=>{if(round<7){round++;render();scrollTo(0,0)}else beginResults()};$('saveWallpaper').onclick=()=>saveResult('wallpaper');$('saveShare').onclick=()=>saveResult('share');$('restart').onclick=()=>show('intro');
   localize();document.body.dataset.screen='intro';render();
 })();
