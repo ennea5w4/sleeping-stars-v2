@@ -72,7 +72,7 @@
     return `<svg viewBox="0 0 345 350" role="img" aria-hidden="true"><defs><linearGradient id="officialFade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b9cae0" stop-opacity=".28"/><stop offset="1" stop-color="#b9cae0" stop-opacity="0"/></linearGradient></defs>${ambient}${lines}${fade}${stars}</svg>`;
   }
 
-  function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src})}
+  function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image(),timer=setTimeout(()=>{img.onload=img.onerror=null;reject(new Error('Image load timed out: '+src))},15000);img.onload=()=>{clearTimeout(timer);img.onload=img.onerror=null;resolve(img)};img.onerror=e=>{clearTimeout(timer);img.onload=img.onerror=null;reject(e)};img.src=src})}
   function drawBackgroundStars(ctx,w,h,seed){for(let i=0;i<150;i++){const x=(i*83+seed*29)%w,y=(i*i*17+seed*53)%h,r=i%13===0?2.4:1.1;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=i%9===0?'rgba(239,217,154,.62)':'rgba(226,237,255,.38)';ctx.fill()}}
   function drawDecorativeSky(ctx,w,h){
     const decor=window.SS_SKY_DECOR;if(!decor)return;const sx=w/1000,sy=h/1000;ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
