@@ -1,14 +1,14 @@
 (function(){
   const characters={
-    1:{family:{ja:'Elias（エリアス）& Brio（ブリオ）',en:'Elias & Brio',ko:'Elias & Brio'},parent:'01_Elias.png',kid:'01_Brio.png',duo:'duo/01_elias_brio_duo.png'},
-    2:{family:{ja:'Mila（ミラ）& Lune（ルーン）',en:'Mila & Lune',ko:'Mila & Lune'},parent:'02_Mila.png',kid:'02_Lune.png',duo:'duo/02_mila_lune_duo.png'},
-    3:{family:{ja:'Luca（ルカ）& Noa（ノア）',en:'Luca & Noa',ko:'Luca & Noa'},parent:'03_Luca.png',kid:'03_Noa.png',duo:'duo/03_luca_noa_duo.png'},
-    4:{family:{ja:'Alma（アルマ）& Iris（アイリス）',en:'Alma & Iris',ko:'Alma & Iris'},parent:'04_Alma.png',kid:'04_Iris.png',duo:'duo/04_alma_iris_duo.png'},
-    5:{family:{ja:'Theo（テオ）& Sora（ソラ）',en:'Theo & Sora',ko:'Theo & Sora'},parent:'05_Theo.png',kid:'05_Sora.png',duo:'duo/05_theo_sora_duo.png'},
-    6:{family:{ja:'Rowan（ローワン）& Atlas（アトラス）',en:'Rowan & Atlas',ko:'Rowan & Atlas'},parent:'06_Rowan.png',kid:'06_Atlas.png',duo:'duo/06_rowan_atlas_duo.png'},
-    7:{family:{ja:'Finn（フィン）& Pico（ピコ）',en:'Finn & Pico',ko:'Finn & Pico'},parent:'07_Finn.png',kid:'07_Pico.png',duo:'duo/07_finn_pico_duo.png'},
-    8:{family:{ja:'Dante（ダンテ）& Leo（レオ）',en:'Dante & Leo',ko:'Dante & Leo'},parent:'08_Dante.png',kid:'08_Leo.png',duo:'duo/08_dante_leo_duo.png'},
-    9:{family:{ja:'Eden（エデン）& Moku（モク）',en:'Eden & Moku',ko:'Eden & Moku'},parent:'09_Eden.png',kid:'09_Moku.png',duo:'duo/09_eden_moku_duo.png'}
+    1:{family:{ja:'Elias（エリアス）& Brio（ブリオ）',en:'Elias & Brio',ko:'Elias & Brio'},familyName:'Elias & Brio',familyReading:'エリアス & ブリオ',parent:'01_Elias.png',kid:'01_Brio.png',duo:'duo/01_elias_brio_duo.png'},
+    2:{family:{ja:'Mila（ミラ）& Lune（ルーン）',en:'Mila & Lune',ko:'Mila & Lune'},familyName:'Mila & Lune',familyReading:'ミラ & ルーン',parent:'02_Mila.png',kid:'02_Lune.png',duo:'duo/02_mila_lune_duo.png'},
+    3:{family:{ja:'Luca（ルカ）& Noa（ノア）',en:'Luca & Noa',ko:'Luca & Noa'},familyName:'Luca & Noa',familyReading:'ルカ & ノア',parent:'03_Luca.png',kid:'03_Noa.png',duo:'duo/03_luca_noa_duo.png'},
+    4:{family:{ja:'Alma（アルマ）& Iris（アイリス）',en:'Alma & Iris',ko:'Alma & Iris'},familyName:'Alma & Iris',familyReading:'アルマ & アイリス',parent:'04_Alma.png',kid:'04_Iris.png',duo:'duo/04_alma_iris_duo.png'},
+    5:{family:{ja:'Theo（テオ）& Sora（ソラ）',en:'Theo & Sora',ko:'Theo & Sora'},familyName:'Theo & Sora',familyReading:'テオ & ソラ',parent:'05_Theo.png',kid:'05_Sora.png',duo:'duo/05_theo_sora_duo.png'},
+    6:{family:{ja:'Rowan（ローワン）& Atlas（アトラス）',en:'Rowan & Atlas',ko:'Rowan & Atlas'},familyName:'Rowan & Atlas',familyReading:'ローワン & アトラス',parent:'06_Rowan.png',kid:'06_Atlas.png',duo:'duo/06_rowan_atlas_duo.png'},
+    7:{family:{ja:'Finn（フィン）& Pico（ピコ）',en:'Finn & Pico',ko:'Finn & Pico'},familyName:'Finn & Pico',familyReading:'フィン & ピコ',parent:'07_Finn.png',kid:'07_Pico.png',duo:'duo/07_finn_pico_duo.png'},
+    8:{family:{ja:'Dante（ダンテ）& Leo（レオ）',en:'Dante & Leo',ko:'Dante & Leo'},familyName:'Dante & Leo',familyReading:'ダンテ & レオ',parent:'08_Dante.png',kid:'08_Leo.png',duo:'duo/08_dante_leo_duo.png'},
+    9:{family:{ja:'Eden（エデン）& Moku（モク）',en:'Eden & Moku',ko:'Eden & Moku'},familyName:'Eden & Moku',familyReading:'エデン & モク',parent:'09_Eden.png',kid:'09_Moku.png',duo:'duo/09_eden_moku_duo.png'}
   };
 
   const ambient=[[18,28],[287,44],[304,221],[35,247],[250,275],[81,67]];
