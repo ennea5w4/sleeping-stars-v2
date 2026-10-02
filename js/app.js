@@ -16,7 +16,7 @@
   function setMultiline(id,text){$(id).innerHTML=text.split('\n').map(x=>escapeHtml(x)).join('<br>')}
   function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function show(id){document.body.dataset.screen=id;document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));scrollTo(0,0)}
-  function localizedType(type){const d=L.types[type],ch=C.characters[type];return {name:d[0],attract:d[1],value:d[2],tired:d[3],hint:d[4],tie:d[5],family:ch.family[locale],parent:ch.parent,kid:ch.kid,duo:ch.duo}}
+  function localizedType(type){const d=L.types[type],ch=C.characters[type];return {name:d[0],attract:d[1],value:d[2],tired:d[3],hint:d[4],tie:d[5],family:ch.family[locale],familyName:ch.familyName,familyReading:ch.familyReading,parent:ch.parent,kid:ch.kid,duo:ch.duo}}
 
   function localize(){
     document.documentElement.lang=L.meta.lang;document.title=L.meta.title;
@@ -60,7 +60,7 @@
     const second=lastMetrics.ranked.find(x=>x.type!==first).type,T=localizedType(first),S=localizedType(second);resultPrimary=first;
     setText('resultType',`Type ${first}`);setText('resultName',T.name);$('constellation').innerHTML=constellationSvg(first);$('constellation').setAttribute('aria-label',U.constellationLabel);
     $('picked').innerHTML=[...selected.values()].sort((a,b)=>a.round-b.round).map(v=>`<span>${escapeHtml(v.text)}</span>`).join('');setText('attract',T.attract);setText('value',T.value);setText('tired',T.tired);setText('hintText',T.hint);
-    setText('blend',fill(L.blend,{first,firstName:T.name,second,secondName:S.name}));const duo=$('familyDuoImage');if(duo){duo.src=`${basePath}img/${T.duo}`;duo.alt=T.family}else{const parent=$('parentImage'),kid=$('kidImage');if(parent){parent.src=`${basePath}img/${T.parent}`;parent.alt=fill(U.parentAlt,{type:first})}if(kid){kid.src=`${basePath}img/${T.kid}`;kid.alt=fill(U.kidAlt,{type:first})}}setText('familyName',T.family);setText('familyType',fill(U.familyType,{type:first}));if($('familyCaption'))setText('familyCaption',U.familyCaption||'');show('result');
+    setText('blend',fill(L.blend,{first,firstName:T.name,second,secondName:S.name}));const duo=$('familyDuoImage');if(duo){duo.src=`${basePath}img/${T.duo}`;duo.alt=T.family}else{const parent=$('parentImage'),kid=$('kidImage');if(parent){parent.src=`${basePath}img/${T.parent}`;parent.alt=fill(U.parentAlt,{type:first})}if(kid){kid.src=`${basePath}img/${T.kid}`;kid.alt=fill(U.kidAlt,{type:first})}}setText('familyName',locale==='ja'?(T.familyName||T.family):T.family);if($('familyReading')){setText('familyReading',locale==='ja'?(T.familyReading||''):'');$('familyReading').hidden=locale!=='ja'}setText('familyType',fill(U.familyType,{type:first}));if($('familyCaption'))setText('familyCaption',U.familyCaption||'');show('result');
   }
 
   function constellationSvg(type){
