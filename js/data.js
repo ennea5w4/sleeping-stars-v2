@@ -1,14 +1,14 @@
 (function(){
   const characters={
-    1:{family:{ja:'Elias（エリアス）& Brio（ブリオ）',en:'Elias & Brio',ko:'Elias & Brio'},parent:'01_Elias.png',kid:'01_Brio.png'},
-    2:{family:{ja:'Mila（ミラ）& Lune（ルーン）',en:'Mila & Lune',ko:'Mila & Lune'},parent:'02_Mila.png',kid:'02_Lune.png'},
-    3:{family:{ja:'Luca（ルカ）& Noa（ノア）',en:'Luca & Noa',ko:'Luca & Noa'},parent:'03_Luca.png',kid:'03_Noa.png'},
-    4:{family:{ja:'Alma（アルマ）& Iris（アイリス）',en:'Alma & Iris',ko:'Alma & Iris'},parent:'04_Alma.png',kid:'04_Iris.png'},
-    5:{family:{ja:'Theo（テオ）& Sora（ソラ）',en:'Theo & Sora',ko:'Theo & Sora'},parent:'05_Theo.png',kid:'05_Sora.png'},
-    6:{family:{ja:'Rowan（ローワン）& Atlas（アトラス）',en:'Rowan & Atlas',ko:'Rowan & Atlas'},parent:'06_Rowan.png',kid:'06_Atlas.png'},
-    7:{family:{ja:'Finn（フィン）& Pico（ピコ）',en:'Finn & Pico',ko:'Finn & Pico'},parent:'07_Finn.png',kid:'07_Pico.png'},
-    8:{family:{ja:'Dante（ダンテ）& Leo（レオ）',en:'Dante & Leo',ko:'Dante & Leo'},parent:'08_Dante.png',kid:'08_Leo.png'},
-    9:{family:{ja:'Eden（エデン）& Moku（モク）',en:'Eden & Moku',ko:'Eden & Moku'},parent:'09_Eden.png',kid:'09_Moku.png'}
+    1:{family:{ja:'Elias（エリアス）& Brio（ブリオ）',en:'Elias & Brio',ko:'Elias & Brio'},parent:'01_Elias.png',kid:'01_Brio.png',duo:'duo/01_elias_brio_duo.png'},
+    2:{family:{ja:'Mila（ミラ）& Lune（ルーン）',en:'Mila & Lune',ko:'Mila & Lune'},parent:'02_Mila.png',kid:'02_Lune.png',duo:'duo/02_mila_lune_duo.png'},
+    3:{family:{ja:'Luca（ルカ）& Noa（ノア）',en:'Luca & Noa',ko:'Luca & Noa'},parent:'03_Luca.png',kid:'03_Noa.png',duo:'duo/03_luca_noa_duo.png'},
+    4:{family:{ja:'Alma（アルマ）& Iris（アイリス）',en:'Alma & Iris',ko:'Alma & Iris'},parent:'04_Alma.png',kid:'04_Iris.png',duo:'duo/04_alma_iris_duo.png'},
+    5:{family:{ja:'Theo（テオ）& Sora（ソラ）',en:'Theo & Sora',ko:'Theo & Sora'},parent:'05_Theo.png',kid:'05_Sora.png',duo:'duo/05_theo_sora_duo.png'},
+    6:{family:{ja:'Rowan（ローワン）& Atlas（アトラス）',en:'Rowan & Atlas',ko:'Rowan & Atlas'},parent:'06_Rowan.png',kid:'06_Atlas.png',duo:'duo/06_rowan_atlas_duo.png'},
+    7:{family:{ja:'Finn（フィン）& Pico（ピコ）',en:'Finn & Pico',ko:'Finn & Pico'},parent:'07_Finn.png',kid:'07_Pico.png',duo:'duo/07_finn_pico_duo.png'},
+    8:{family:{ja:'Dante（ダンテ）& Leo（レオ）',en:'Dante & Leo',ko:'Dante & Leo'},parent:'08_Dante.png',kid:'08_Leo.png',duo:'duo/08_dante_leo_duo.png'},
+    9:{family:{ja:'Eden（エデン）& Moku（モク）',en:'Eden & Moku',ko:'Eden & Moku'},parent:'09_Eden.png',kid:'09_Moku.png',duo:'duo/09_eden_moku_duo.png'}
   };
 
   const ambient=[[18,28],[287,44],[304,221],[35,247],[250,275],[81,67]];
@@ -27,13 +27,13 @@
   const common={
     rotations:[0,4,8,3,7,2,6,1],
     characters,ambient,constellations,
-    paidUrl:'https://rainy-muse.sunnyday.jp/#contact-personal',
+    paidUrls:{ja:'https://rainy-muse.sunnyday.jp/#contact-personal',en:'',ko:''},
     articleUrls:{ja:'https://note.com/rainy_muse',en:'https://medium.com/@rainy_muse',ko:'https://note.com/rainy_muse'}
   };
 
   const ja={
     meta:{lang:'ja',title:'Sleeping Stars v2｜心にひびく言葉から見つける、あなたの星座',description:'心に残る言葉を星として集める、3〜5分の静かな自己理解体験。8つの星空をめぐり、今のあなたの星座を見つけます。'},
-    ui:{subhead:'A Journey into Your Stars',lead:'あなたの中に眠る星を、見つけにいこう。',detail:'8つの星空で、心に残る言葉を選ぶだけ。今のあなたに表れている価値観や傾向が、ひとつの星座として静かに浮かび上がります。',introAlt:'星とランタンに囲まれ、旅の入口を案内するLuneとPico',meta:['3〜5分','登録不要','結果は無料'],start:'星を見つけにいく',notice:'これはタイプを断定する診断ではありません。\n今のあなたに表れている傾向を、静かに眺めるための体験です。',choiceGuide:'ひとつだけ強く光る夜も、いくつかの星が残る夜もあります。今の心に近いものを、1〜3個選んでください。',found:'見つけた星',back:'戻る',next:'次の星空へ',see:'私の星座を見る',resultBrand:'Your Constellation',picked:'今回、あなたが見つけた星',insights:['あなたが惹かれやすいもの','大切にしている価値観','疲れている時に出やすい反応','今の自分への小さなヒント'],overlap:'あなたの星の重なり',familyLead:'この館で、あなたの星に近い親子は——',familyType:'Type {type} の親子',saveTitle:'星座をそばに置く',saveLead:'日常で静かに見返せる画像として保存できます。',wallpaper:'待ち受け版を保存',share:'シェア版を保存',paidLead:'ここで見えたのは、あなたの星座の輪郭です。\n絵や言葉、これまでの物語も重ねながら、もう少し深く自分を読み解きたい方へ。',paid:'私の星座を、もう少し深く読む',storyLead:'選んだ星の余韻を、言葉の物語でもう少し。',story:'星座の物語を読む',storySource:'noteで読む',restart:'もう一度、星を探す',tieBrand:'The Final Star',tieTitle:'最後の一星',tieLead:'同じ強さで光る星が残りました。今、もう少し心に近い言葉をひとつ選んでください。',constellationLabel:'あなたのタイプを表す星座',parentAlt:'Type {type}の親キャラ',kidAlt:'Type {type}のKidsキャラ',wallTitle:'あなたの中に見つけた星',wallNote:'今日の自分へ、小さな星のしるし。',shareNote:'{value}',downloadName:'sleeping-stars'},
+    ui:{subhead:'A Journey into Your Stars',lead:'あなたの中に眠る星を、見つけにいこう。',detail:'8つの星空で、心に残る言葉を選ぶだけ。今のあなたに表れている価値観や傾向が、ひとつの星座として静かに浮かび上がります。',introAlt:'星とランタンに囲まれ、旅の入口を案内するLuneとPico',meta:['3〜5分','登録不要','結果は無料'],start:'星を見つけにいく',notice:'これはタイプを断定する診断ではありません。\n今のあなたに表れている傾向を、静かに眺めるための体験です。',choiceGuide:'ひとつだけ強く光る夜も、いくつかの星が残る夜もあります。今の心に近いものを、1〜3個選んでください。',found:'見つけた星',back:'戻る',next:'次の星空へ',see:'私の星座を見る',resultBrand:'Your Constellation',picked:'今回、あなたが見つけた星',insights:['あなたが惹かれやすいもの','大切にしている価値観','疲れている時に出やすい反応','今の自分への小さなヒント'],overlap:'あなたの星の重なり',familyLead:'この館で、あなたの星に近い親子は——',familyType:'Type {type} の親子',familyCaption:'あなたの中で今、特に近くに灯っている星の雰囲気です。物語の住人として、そっと眺めてみてください。',saveTitle:'星座をそばに置く',saveLead:'日常で静かに見返せる画像として保存できます。',wallpaper:'待ち受け版を保存',share:'シェア版を保存',paidLead:'ここで見えたのは、あなたの星の入口です。\nもう少し深く、自分だけの背景やパターンまで読み解いてみたい方へ。',paidHeading:'エニアグラム×アート診断で分かること',paidFeatures:['なぜこのタイプに惹かれるのか','似ているタイプとの違い','自分の中にある動機やパターン','ストレス時・安定時の流れ','自分らしさの活かし方'],paid:'私の星を、もう少し深く読む',storyLead:'選んだ星の余韻を、言葉の物語でもう少し。',story:'星座の物語を読む',storySource:'noteで読む',restart:'もう一度、星を探す',tieBrand:'The Final Star',tieTitle:'最後の一星',tieLead:'同じ強さで光る星が残りました。今、もう少し心に近い言葉をひとつ選んでください。',constellationLabel:'あなたのタイプを表す星座',parentAlt:'Type {type}の親キャラ',kidAlt:'Type {type}のKidsキャラ',wallTitle:'あなたの中に見つけた星',wallNote:'今日の自分へ、小さな星のしるし。',shareNote:'{value}',downloadName:'sleeping-stars'},
     fields:[
       ['最初の星空',['より良くしたい','人を支えたい','形にしていきたい','自分だけの感覚','物事の本質','安心できる土台','新しい可能性','自分の意志','穏やかな時間']],
       ['心の奥の星空',['誠実でありたい','必要とされたい','成果を生み出す','余韻を味わう','静かに観察する','確かめてから進む','自由に広げる','大切なものを守る','調和を保つ']],
