@@ -27,7 +27,7 @@
   const common={
     rotations:[0,4,8,3,7,2,6,1],
     characters,ambient,constellations,
-    paidUrls:{ja:'https://rainy-muse.sunnyday.jp/#contact-personal',en:'',ko:''},
+    paidUrls:{ja:'https://rainy-muse.stores.jp/',en:'',ko:''},
     lineUrl:'https://line.me/R/ti/p/@819poixx',
     articleUrls:{ja:'https://note.com/rainy_muse',en:'https://medium.com/@rainy_muse',ko:'https://note.com/rainy_muse'}
   };
